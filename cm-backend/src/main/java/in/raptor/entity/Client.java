@@ -1,5 +1,7 @@
 package in.raptor.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -131,6 +133,22 @@ public class Client {
 
 	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if (this == o) return true;
+		
+		if (!(o instanceof Client)) return false;
+		
+		Client client = (Client) o;
+		
+		return id != null && id.equals(client.id);
+	}
+	
+	@Override
+	public int hashCode () {
+		return Objects.hash(id);
 	}
 
 	@Override

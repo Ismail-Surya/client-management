@@ -1,6 +1,8 @@
 package in.raptor.entity;
 
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(
@@ -74,6 +78,12 @@ public class User {
 		this.password = password;
 		this.enabled = enabled;
 	}
+	
+	public Set <GrantedAuthority> toGrantedAuthorities () {
+		return this.authorities.stream()
+				.map(Authority::toGrantedAuthority)
+				.collect(Collectors.toSet());
+	}
 
 	public Long getId() {
 		return id;
@@ -121,6 +131,22 @@ public class User {
 
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if (this == o) return true;
+		
+		if (!(o instanceof User)) return false;
+		
+		User user = (User) o;
+		
+		return id != null && id.equals(user.id);
+	}
+	
+	@Override
+	public int hashCode () {
+		return Objects.hash(id);
 	}
 
 	@Override

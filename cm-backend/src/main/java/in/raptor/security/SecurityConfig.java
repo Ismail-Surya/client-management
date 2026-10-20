@@ -76,7 +76,8 @@ public class SecurityConfig {
 				.antMatchers(
 						"/api/auth/login",
 						"/api/auth/register",
-						"/api/auth/refresh"
+						"/api/auth/refresh",
+						"/api/auth/logout"
 				).permitAll()
 				.antMatchers("/api/**").authenticated()
 				.anyRequest().permitAll()

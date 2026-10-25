@@ -10,4 +10,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	
 	Boolean existsByPanNumber (String panNumber);
 	
+	Boolean existsByEmailAndIdNot (String email, Long id);
+	
+	Boolean existsByPanNumberAndIdNot (String panNumber, Long id);
+	
 }
